@@ -37,3 +37,23 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+# Android
+android/app/build/
+android/.gradle
+android/.idea
+*.iml
+
+# iOS
+ios/Pods/
+ios/build/
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+
+# VS Code
+.vscode/
+
+# Expo shared cache
+.expo-shared/
+.metro-cache
+expo-debug.log
