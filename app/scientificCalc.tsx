@@ -7,7 +7,7 @@ import { styles } from "@/utils/calcstyles";
 export default function ScientCalc(){
  const [display,setdisp]=useState("0");
  function onButtonClick(label: string) {
-     if (/[0-9]/.test(label)||["e","π","(",")","log","ln"].includes(label)) {
+     if (/[0-9]/.test(label)||["e","π","(",")","log","ln","√"].includes(label)) {
        setdisp((prev) => ((prev === "0"||prev==="Error") ? label : prev + label));
      } else if (isOp(label)&&!isOp(display[display.length-1])) {
        setdisp((prev) => (prev + label));
