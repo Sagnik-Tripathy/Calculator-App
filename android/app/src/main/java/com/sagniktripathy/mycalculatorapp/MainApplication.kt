@@ -1,4 +1,4 @@
-package com.mycalculatorapp
+package com.sagniktripathy.mycalculatorapp
 
 import android.app.Application
 import android.content.res.Configuration
