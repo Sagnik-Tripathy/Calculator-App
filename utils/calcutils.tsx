@@ -1,4 +1,6 @@
 // Factorial function
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 function factorial(n: number): number {
   if (n < 0) throw new Error("Factorial of negative number not defined");
   if (n === 0 || n === 1) return 1;
@@ -38,4 +40,21 @@ export function evaluateexp(exp: string): string {
 
 export function isOp(ex: string){
     return (["+", "-", "×", "÷","√","log","ln","!","^"].includes(ex));
+}
+const DISPLAY_KEY = "calc-display";
+export async function saveDisp(val: string){
+  try{
+    await AsyncStorage.setItem(DISPLAY_KEY,val);
+  } catch(e){
+    console.error("Error in saving: ",e)
+  }
+}
+export async function loadDisp(): Promise<string> {
+  try{
+    const val= await AsyncStorage.getItem(DISPLAY_KEY);
+    return val??"0";
+  }catch(e){
+    console.error("Error in loading display: ",e);
+    return "0";
+  }
 }

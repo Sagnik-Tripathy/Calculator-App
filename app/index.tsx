@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {Link} from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { evaluateexp,isOp } from "@/utils/calcutils";
+import { evaluateexp,isOp , loadDisp, saveDisp} from "@/utils/calcutils";
 import { styles } from "@/utils/calcstyles";
 
 
 export default function Calculator() {
+  
   const [display, setDisplay] = useState("0");
+  useEffect(()=>{
+    const fetchData = async () => {
+    const ld = await loadDisp();
+    setDisplay(ld);
+  };
+  fetchData();
+  },[]);
+
+  useEffect(()=> {
+    saveDisp(display);
+
+  },[display]);
 
   // function to handle button presses
   function onButtonClick(label: string) {
-    if (/[0-9]/.test(label)||["e","π"].includes(label)) {
+    if (/[0-9]/.test(label)||["e","π","."].includes(label)) {
       setDisplay((prev) => ((prev === "0"||prev ==="Error") ? label : prev + label));
     } else if (isOp(label)&&!isOp(display[display.length-1])) {
       setDisplay((prev) => (prev + label));

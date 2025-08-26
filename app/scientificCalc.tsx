@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { evaluateexp,isOp } from "@/utils/calcutils";
+import { evaluateexp,isOp, loadDisp, saveDisp } from "@/utils/calcutils";
 import { styles } from "@/utils/calcstyles";
 
 export default function ScientCalc(){
  const [display,setdisp]=useState("0");
+ useEffect(()=>{
+     async () => {
+       const ld = await loadDisp();
+       setdisp(ld);
+     }
+   },[]);
+ 
+   useEffect(()=> {
+     saveDisp(display);
+ 
+   },[display]);
  function onButtonClick(label: string) {
-     if (/[0-9]/.test(label)||["e","π","(",")","log","ln","√"].includes(label)) {
+     if (/[0-9]/.test(label)||["e","π","(",")","log","ln","√","."].includes(label)) {
        setdisp((prev) => ((prev === "0"||prev==="Error") ? label : prev + label));
      } else if (isOp(label)&&!isOp(display[display.length-1])) {
        setdisp((prev) => (prev + label));
