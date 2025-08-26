@@ -34,7 +34,7 @@ export default function ScientCalc(){
 
 return (
   <View style={styles.page}>
-    <Link href="/calculator" asChild>
+    <Link href="/" asChild>
       <TouchableOpacity style={styles.scientific}>
         <Text style={styles.buttonText}>
         norm 

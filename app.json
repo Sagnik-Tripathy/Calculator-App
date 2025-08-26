@@ -1,6 +1,6 @@
 {
   "expo": {
-    "entryPoint": "./calculator.tsx",
+    
     "name": "my-calculator-app",
     "slug": "my-calculator-app",
     "version": "1.0.0",
@@ -10,7 +10,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sagniktripathy.mycalculatorapp"
     },
     "android": {
       "adaptiveIcon": {
