@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Link } from "expo-router";
+import { Link, router, useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { evaluateexp,isOp, loadDisp, saveDisp } from "@/utils/calcutils";
 import { styles } from "@/utils/calcstyles";
+import { Picker } from "@react-native-picker/picker";
 
 export default function ScientCalc(){
  const [display,setdisp]=useState("0");
+ const [page,setPage]= useState("Normal");
  useEffect(()=>{
      async () => {
        const ld = await loadDisp();
@@ -26,13 +28,14 @@ export default function ScientCalc(){
      } else if (label === "C") {
        setdisp("0");
      } else if (label === "⌫") {
-        
+        if(!(display==="0")){
        setdisp((prev) => (
   prev.endsWith("log") ? prev.slice(0, -3) :
   prev.endsWith("ln") ? prev.slice(0, -2) :
+  prev==="Error"||prev==="Infinity"||prev==="-Infinity"? "0":
   prev.slice(0, -1)
 ));
-     }
+     }}
    };
    const scientGridButtons = [
   "log","ln","(",")","⌫",
@@ -45,13 +48,25 @@ export default function ScientCalc(){
 
 return (
   <View style={styles.page}>
-    <Link href="/" asChild>
-      <TouchableOpacity style={styles.scientific}>
-        <Text style={styles.buttonText}>
-        norm 
-        </Text>
-      </TouchableOpacity>
-      </Link>
+    <Picker 
+        selectedValue={page}
+        onValueChange={(itemValue) => {
+            setPage(itemValue)
+            if (itemValue === "normal") {
+            router.push("/");
+          } else if (itemValue === "currency") {
+            router.push("/currencyconverter");
+          } 
+        }}
+        style={styles.menuDrop}
+        dropdownIconColor="#ffffff"
+        >
+            <Picker.Item label="Normal" value="normal" color="#000000" />
+            <Picker.Item label="Currency" value="currency" color="#000000" />
+        
+        </Picker>
+
+
     <View style={styles.calculator}>
       
       <View style={styles.display}>

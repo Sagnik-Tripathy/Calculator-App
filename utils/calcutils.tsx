@@ -1,5 +1,4 @@
 // Factorial function
-import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function factorial(n: number): number {
   if (n < 0) throw new Error("Factorial of negative number not defined");
@@ -58,3 +57,30 @@ export async function loadDisp(): Promise<string> {
     return "0";
   }
 }
+export type convres = {
+  resu: string;
+  rat: string;
+};
+export async function convertCurr(
+  amount: string,
+  base: string,
+  finalcur: string
+ ): Promise<convres>{
+  
+  const link=`https://v6.exchangerate-api.com/v6/124e7391a126ba78b3e85c8f/pair/${encodeURIComponent(base)}/${encodeURIComponent(finalcur)}/${encodeURIComponent(amount)}`;
+  
+  const reso=await fetch(link);
+
+  const data=await reso.json();
+  
+
+  if(data.result==="error"){
+    throw new Error("Some error occured: "+data["error-type"]);
+  }
+  else{
+    return{resu: data.conversion_result,rat: data.conversion_rate};
+  }
+
+}
+
+

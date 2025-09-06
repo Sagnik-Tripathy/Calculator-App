@@ -1,13 +1,14 @@
 import { useState,useEffect } from "react";
-import {Link} from "expo-router";
+import {Link,router,useRouter} from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { evaluateexp,isOp , loadDisp, saveDisp} from "@/utils/calcutils";
 import { styles } from "@/utils/calcstyles";
-
+import { Picker } from "@react-native-picker/picker";
 
 export default function Calculator() {
   
   const [display, setDisplay] = useState("0");
+  const [page,setPage]= useState("Currency");
   useEffect(()=>{
     const fetchData = async () => {
     const ld = await loadDisp();
@@ -23,7 +24,7 @@ export default function Calculator() {
 
   // function to handle button presses
   function onButtonClick(label: string) {
-    if (/[0-9]/.test(label)||["e","π","."].includes(label)) {
+    if (/[0-9]/.test(label)||["."].includes(label)) {
       setDisplay((prev) => ((prev === "0"||prev ==="Error") ? label : prev + label));
     } else if (isOp(label)&&!isOp(display[display.length-1])) {
       setDisplay((prev) => (prev + label));
@@ -31,7 +32,9 @@ export default function Calculator() {
     } else if (label === "C") {
       setDisplay("0");
     } else if (label === "⌫") {
-      setDisplay((prev) => (prev.slice(0,prev.length-1)))
+      if(!(display==="0")){
+      setDisplay((prev) => (prev==="Error"||prev==="Infinity"||prev==="-Infinity" ? "0" : prev.slice(0,prev.length-1)))
+      }
     }
   };
 
@@ -45,13 +48,25 @@ export default function Calculator() {
 
   return (
   <View style={styles.page}>
-    <Link href="/scientificCalc" asChild>
-      <TouchableOpacity style={styles.scientific}>
-        <Text style={styles.buttonText}>
-        sci 
-        </Text>
-      </TouchableOpacity>
-      </Link>
+    <Picker 
+        selectedValue={page}
+        onValueChange={(itemValue) => {
+            setPage(itemValue)
+            if (itemValue === "currency") {
+            router.push("/currencyconverter");
+          } else if (itemValue === "scientific") {
+            router.push("/scientificCalc");
+          } 
+        }}
+        style={styles.menuDrop}
+        dropdownIconColor="#ffffff"
+        >
+            <Picker.Item label="Currency" value="currency" color="#000000" />
+            <Picker.Item label="Scientific" value="scientific" color="#000000" />
+        
+        </Picker>
+
+    
     <View style={styles.calculator}>
       
       <View style={styles.display}>

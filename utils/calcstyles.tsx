@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
 },
 
   button_normal: {
-    width: "22%", // ~4 per row
+    width: "22%", 
     marginBottom: 10,
     paddingVertical: 20,
     borderRadius: 12,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   eqbutton: {
-    width: "100%", // ~4 per row
+    width: "100%", 
     marginBottom: 10,
     paddingVertical: 20,
     borderRadius: 12,
@@ -71,5 +71,14 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#89898c",
+  },
+  menuDrop: {
+    position: "absolute",
+    backgroundColor: "#373838",
+    top: 40,
+    left: 10,
+    width: 160, 
+    color: "#ffffff", // text color
+    borderRadius: 8
   },
 });
