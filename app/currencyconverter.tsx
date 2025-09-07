@@ -123,7 +123,7 @@ return(
                 </View>
             </View>
             <View style={[currstyles.rateBox, {height: lheight-40,marginTop: 20}]}>
-                <Text style={{ color: "#ffffff" }}>Rate: {rate ?? "--"}</Text>
+                <Text style={{ color: "#ffffff" }}>Rate:{"\n"}{rate ?? "--"}</Text>
             </View>
         </View>
               <View style={styles.grid}>
