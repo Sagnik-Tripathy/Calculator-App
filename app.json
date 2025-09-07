@@ -3,7 +3,7 @@
     
     "name": "Calculator",
     "slug": "Calculator",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/calc_icon.jpeg",
     "scheme": "mycalculatorapp",
@@ -14,6 +14,7 @@
       "bundleIdentifier": "com.sagniktripathy.mycalculatorapp"
     },
     "android": {
+      "versionCode": 2,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
