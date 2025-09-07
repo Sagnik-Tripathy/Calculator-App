@@ -2,10 +2,10 @@
   "expo": {
     
     "name": "Calculator",
-    "slug": "Calculator",
+    "slug": "my-calculator-app",
     "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/calc_icon.jpeg",
+    "icon": "./assets/images/calc_icon.png",
     "scheme": "mycalculatorapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -16,7 +16,7 @@
     "android": {
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/calc_icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": false,

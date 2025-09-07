@@ -64,7 +64,7 @@ async function Conv(){
     
 }
 Conv();
-},[display]);
+},[display,from,to]);
 
 return(
     <View style={styles.page}>
@@ -100,7 +100,16 @@ return(
                     </View>
                     <Picker 
                     selectedValue={from}
-                    onValueChange={(itemValue)=>setFrom(itemValue)}
+                    onValueChange={async (itemValue)=>{
+                        setFrom(itemValue);
+                        try {
+                             const { resu, rat } = await convertCurr(display, itemValue, to);
+                            setRate(rat);
+                            setResult(resu);
+                        } catch (err) {
+                            console.log("Conversion failed:", err);
+    }
+                        setFrom(itemValue)}}
                     style={currstyles.dropdown}
                     dropdownIconColor="#ffffff">
                         {currencies.map((currency)=>(
@@ -119,7 +128,17 @@ return(
                     </View>
                     <Picker 
                     selectedValue={to}
-                    onValueChange={(itemValue)=>setTo(itemValue)}
+                    onValueChange={async (itemValue)=>{
+                        setTo(itemValue)
+                        try {
+                            const { resu, rat } = await convertCurr(display, itemValue, to);
+                            setRate(rat);
+                            setResult(resu);
+                        } catch (err) {
+                            console.log("Conversion failed:", err);
+                        }
+                    
+                    }}
                     style={currstyles.dropdown}
                     dropdownIconColor="#ffffff">
                         {currencies.map((currency)=>(
