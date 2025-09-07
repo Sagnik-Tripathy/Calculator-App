@@ -7,7 +7,7 @@ import { Picker } from "@react-native-picker/picker";
 
 export default function ScientCalc(){
  const [display,setdisp]=useState("0");
- const [page,setPage]= useState("Normal");
+ const [page,setPage]= useState("scientific");
  useEffect(()=>{
      async () => {
        const ld = await loadDisp();
@@ -68,6 +68,7 @@ return (
         style={styles.menuDrop}
         dropdownIconColor="#ffffff"
         >
+            <Picker.Item label="Scientific" value="scientific" color="#000000" />
             <Picker.Item label="Normal" value="normal" color="#000000" />
             <Picker.Item label="Currency" value="currency" color="#000000" />
         

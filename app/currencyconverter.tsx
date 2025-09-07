@@ -12,7 +12,7 @@ export default function Calculator() {
   const [to,setTo] = useState("USD"); //final currency
   const [result,setResult] = useState("0"); //result
   const [rate,setRate] = useState<string|null>(null); //by default null
-  const [page,setPage]= useState("Normal");
+  const [page,setPage]= useState("currency");
   const [lheight,setHeight]= useState(0);
   useEffect(()=>{
     const fetchData = async () => {
@@ -82,6 +82,7 @@ return(
         style={styles.menuDrop}
         dropdownIconColor="#ffffff"
         >
+            <Picker.Item label="Currency" value="currency" color="#000000" />
             <Picker.Item label="Normal" value="normal" color="#000000" />
             <Picker.Item label="Scientific" value="scientific" color="#000000" />
         
