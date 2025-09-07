@@ -35,7 +35,12 @@ function onButtonClick(inp: string){
     else if (inp === "C") {
       setDisplay("0");
     } else if (inp === "⌫") {
+        if(display.length===1){
+          setDisplay((prev)=>("0"));
+        }
+        else{
       setDisplay((prev) => (prev.slice(0,prev.length-1)))
+        }
     }
 }
 const gridbuttons=[
@@ -45,16 +50,21 @@ const gridbuttons=[
   "1", "2", "3", 
   "0", ".", "⌫",
 ]
+useEffect(() =>{
 async function Conv(){
     try{
     const {resu, rat} = await convertCurr(display,from, to);
     setRate(rat);
     setResult(resu);
+    
     }
     catch(error:unknown){
         console.log("some error occured");
     }
+    
 }
+Conv();
+},[display]);
 
 return(
     <View style={styles.page}>
@@ -137,9 +147,7 @@ return(
                   </TouchableOpacity>
                 ))}
               </View>
-        <TouchableOpacity style={[styles.eqbutton, styles.equals] } onPress={() => (Conv())}>
-            <Text style={styles.equalsText}>=</Text>
-        </TouchableOpacity>
+        
 
     </View>
 

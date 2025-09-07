@@ -29,12 +29,19 @@ export default function ScientCalc(){
        setdisp("0");
      } else if (label === "⌫") {
         if(!(display==="0")){
+          if(display.length===1){
+          setdisp((prev)=>("0"));
+        }
+
+
+        else{
        setdisp((prev) => (
   prev.endsWith("log") ? prev.slice(0, -3) :
   prev.endsWith("ln") ? prev.slice(0, -2) :
   prev==="Error"||prev==="Infinity"||prev==="-Infinity"? "0":
   prev.slice(0, -1)
 ));
+        }
      }}
    };
    const scientGridButtons = [
@@ -67,12 +74,13 @@ return (
         </Picker>
 
 
-    <View style={styles.calculator}>
+    <View style={{flex:1,paddingTop:100,width:"100%"}}>
       
       <View style={styles.display}>
         <Text style={styles.displayText}>
           {display}
         </Text>
+      </View>
       </View>
       <View style={styles.grid}>
         {scientGridButtons.map((label) => (
@@ -88,7 +96,7 @@ return (
       <TouchableOpacity style={[styles.eqbutton, styles.equals]} onPress={() => {setdisp(evaluateexp(display))}}>
         <Text style={styles.equalsText}>=</Text>
       </TouchableOpacity>
-    </View>
+    
   </View>
 );
 

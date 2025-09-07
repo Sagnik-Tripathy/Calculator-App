@@ -33,7 +33,12 @@ export default function Calculator() {
       setDisplay("0");
     } else if (label === "⌫") {
       if(!(display==="0")){
-      setDisplay((prev) => (prev==="Error"||prev==="Infinity"||prev==="-Infinity" ? "0" : prev.slice(0,prev.length-1)))
+        if(display.length===1){
+          setDisplay((prev)=>("0"));
+        }
+        else{
+      setDisplay((prev) => (prev==="Error"||prev==="Infinity"||prev==="-Infinity" ? "0" : prev.slice(0,prev.length-1)));
+        }
       }
     }
   };
@@ -65,14 +70,15 @@ export default function Calculator() {
             <Picker.Item label="Scientific" value="scientific" color="#000000" />
         
         </Picker>
-
+      
     
-    <View style={styles.calculator}>
+    <View style={{flex:1,paddingTop:100,width:"100%"}}>
       
       <View style={styles.display}>
         <Text style={styles.displayText}>
           {display}
         </Text>
+      </View>
       </View>
       <View style={styles.grid}>
         {gridButtons.map((label) => (
@@ -88,7 +94,7 @@ export default function Calculator() {
       <TouchableOpacity style={[styles.eqbutton, styles.equals]} onPress={() => {setDisplay(evaluateexp(display))}}>
         <Text style={styles.equalsText}>=</Text>
       </TouchableOpacity>
-    </View>
+    
   </View>
 );
 

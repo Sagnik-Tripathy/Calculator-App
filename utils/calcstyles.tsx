@@ -8,9 +8,10 @@ export const styles = StyleSheet.create({
     padding: 24,
   },
   calculator: {
-    width: 360,
-    padding: 16,
-    backgroundColor: "#000000",
+    flex:1,
+    width:"100%",
+    paddingTop:100
+
   },
   display: {
     width: "100%",
@@ -36,8 +37,8 @@ export const styles = StyleSheet.create({
   paddingVertical: 8,
   paddingHorizontal: 14,
   borderRadius: 8,
-  zIndex: 999,          // stays above display & grid
-  elevation: 5,         // for Android shadow
+  zIndex: 999,          
+  elevation: 5,         
 },
 
   button_normal: {
@@ -79,6 +80,8 @@ export const styles = StyleSheet.create({
     left: 10,
     width: 160, 
     color: "#ffffff", // text color
-    borderRadius: 8
+    borderRadius: 8,
+    elevation:10,
+    zIndex:10
   },
 });
