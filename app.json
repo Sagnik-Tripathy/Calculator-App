@@ -1,11 +1,11 @@
 {
   "expo": {
     
-    "name": "my-calculator-app",
-    "slug": "my-calculator-app",
+    "name": "Calculator",
+    "slug": "Calculator",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/calc_icon.jpeg",
     "scheme": "mycalculatorapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
