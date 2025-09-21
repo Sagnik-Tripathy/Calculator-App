@@ -16,9 +16,11 @@ export function evaluateexp(exp: string): string {
     let jsready = exp
       .replace(/×/g, "*")
       .replace(/÷/g, "/")
-      .replace(/√(\d+(\.\d+)?)/g, (match, num) => {
+      .replace(/√(\d+(\.\d+)?|π|e)/g, (_, num) => {
+        if (num === 'π') return 'Math.sqrt(Math.PI)';
+    if (num === 'e') return 'Math.sqrt(Math.E)';
   return `Math.sqrt(${num})`})
-  .replace(/√\(([^)]+)\)/g, (match, expr) => {
+  .replace(/√\(([^)]+)\)/g, (_, expr) => {
   return `Math.sqrt(${expr})`})    
       .replace(/log\(([^)]+)\)/g, "Math.log10($1)")     
       .replace(/ln\(([^)]+)\)/g, "Math.log($1)")        
