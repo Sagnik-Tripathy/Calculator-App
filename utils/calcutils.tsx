@@ -1,4 +1,3 @@
-// Factorial function
 import AsyncStorage from "@react-native-async-storage/async-storage";
 function factorial(n: number): number {
   if (n < 0) throw new Error("Factorial of negative number not defined");
@@ -27,10 +26,8 @@ export function evaluateexp(exp: string): string {
       .replace(/(\d+)\^(\d+)/g, "Math.pow($1,$2)")      
       .replace(/π/g, "Math.PI")                         
       .replace(/\be\b/g, "Math.E")                      
-      // NEW: factorial support for numbers or parenthesis
-      .replace(/(\([^()]+\)|\d+)!/g, (match) => {
-        const inner = match.slice(0, -1);
-        return `factorial(${inner})`;
+      .replace(/(\([^()]+\)|\d+)!/g, (fullmatch,innermatch) => {
+        return `factorial(${innermatch})`;
       });
 
     return eval(jsready).toString();
