@@ -25,7 +25,11 @@ export function evaluateexp(exp: string): string {
       .replace(/ln\(([^)]+)\)/g, "Math.log($1)")        
       .replace(/(\d+)\^(\d+)/g, "Math.pow($1,$2)")      
       .replace(/π/g, "Math.PI")                         
-      .replace(/\be\b/g, "Math.E")                      
+      .replace(/\be\b/g, "Math.E")
+      .replace(/(\d+(\.\d+)?|π|e)\(/g,(whole,inner) => {
+        return `${inner}*(`;
+        })
+      .replace(/\)\(/g,")*(")                      
       .replace(/(\([^()]+\)|\d+)!/g, (fullmatch,innermatch) => {
         return `factorial(${innermatch})`;
       });
