@@ -1,49 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link, router, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { evaluateexp,isOp, loadDisp, saveDisp } from "@/utils/calcutils";
 import { styles } from "@/utils/calcstyles";
 import { Picker } from "@react-native-picker/picker";
+import { useCompute } from "@/Hooks/useCompute";
 
 export default function ScientCalc(){
- const [display,setdisp]=useState("0");
- const [page,setPage]= useState("scientific");
- useEffect(()=>{
-     async () => {
-       const ld = await loadDisp();
-       setdisp(ld);
-     }
-   },[]);
- 
-   useEffect(()=> {
-     saveDisp(display);
- 
-   },[display]);
- function onButtonClick(label: string) {
-     if (/[0-9]/.test(label)||["e","π","(",")","log","ln","√","."].includes(label)) {
-       setdisp((prev) => ((prev === "0"||prev==="Error") ? label : prev + label));
-     } else if (isOp(label)&&!isOp(display[display.length-1])) {
-       setdisp((prev) => (prev + label));
-       
-     } else if (label === "C") {
-       setdisp("0");
-     } else if (label === "⌫") {
-        if(!(display==="0")){
-          if(display.length===1){
-          setdisp((prev)=>("0"));
-        }
-
-
-        else{
-       setdisp((prev) => (
-  prev.endsWith("log") ? prev.slice(0, -3) :
-  prev.endsWith("ln") ? prev.slice(0, -2) :
-  prev==="Error"||prev==="Infinity"||prev==="-Infinity"? "0":
-  prev.slice(0, -1)
-));
-        }
-     }}
-   };
+  const compute= useCompute();
+  const router= useRouter();
    const scientGridButtons = [
   "log","ln","(",")","⌫",
   "!","7", "8", "9", "÷",
@@ -56,9 +20,9 @@ export default function ScientCalc(){
 return (
   <View style={styles.page}>
     <Picker 
-        selectedValue={page}
+        selectedValue={compute.page}
         onValueChange={(itemValue) => {
-            setPage(itemValue)
+            compute.setPage(itemValue)
             if (itemValue === "normal") {
             router.push("/");
           } else if (itemValue === "currency") {
@@ -79,7 +43,7 @@ return (
       
       <View style={styles.display}>
         <Text style={styles.displayText}>
-          {display}
+          {compute.display}
         </Text>
       </View>
       </View>
@@ -87,14 +51,14 @@ return (
         {scientGridButtons.map((label) => (
           <TouchableOpacity
             key={label}
-            onPress={() => onButtonClick(label)}
+            onPress={() => compute.onButtonClick(label)}
             style={[styles.button_normal,spclStyles.scientificButtons, /[÷×+\-C]/.test(label) ? styles.opButton : null]}
           >
             <Text style={styles.buttonText}>{label}</Text>
           </TouchableOpacity>
         ))}
       </View>
-      <TouchableOpacity style={[styles.eqbutton, styles.equals]} onPress={() => {setdisp(evaluateexp(display))}}>
+      <TouchableOpacity style={[styles.eqbutton, styles.equals]} onPress={() => {compute.setdisp(evaluateexp(compute.display))}}>
         <Text style={styles.equalsText}>=</Text>
       </TouchableOpacity>
     
